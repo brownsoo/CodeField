@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CodeField_Example' do
+  pod 'CodeField', :path => '../'
+
+  target 'CodeField_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
