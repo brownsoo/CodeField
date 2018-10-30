@@ -64,6 +64,13 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
+    @IBInspectable
+    public var codeBackgroundColor: UIColor = UIColor.yellow.withAlphaComponent(0.3) {
+        didSet {
+            boxes.forEach { $0.backgroundColor = codeBackgroundColor }
+        }
+    }
+    
     // TODO: make responsive height with font
     @IBInspectable
     public var codeHeight: CGFloat = 58 {
@@ -281,7 +288,7 @@ public class CodeField: UIView, UITextFieldDelegate {
             charBox.underlineEditingColor = underlineEditingColor
             charBox.maxLength = oneCodeLength
             charBox.placeholder = oneCodePlaceHolder
-            charBox.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
+            charBox.backgroundColor = codeBackgroundColor
             stack.addArrangedSubview(charBox)
             charBox.onTextChanged = {
                 self.onTextChanged(text: $0, tag: idx)
