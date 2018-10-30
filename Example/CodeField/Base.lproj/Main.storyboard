@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="CodeField_Example_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="CodeField_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -21,14 +21,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ViI-RO-h4Y" customClass="CodeField" customModule="CodeField">
-                                <rect key="frame" x="16" y="177" width="343" height="105"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ViI-RO-h4Y" customClass="CodeField" customModule="CodeField">
+                                <rect key="frame" x="16" y="40" width="343" height="106"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="label" value="This is Label"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="helper" value="This is helper text"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fRg-so-Jqw" customClass="CodeField" customModule="CodeField">
+                                <rect key="frame" x="16" y="166" width="343" height="98"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="label" value="This is Label"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="helper" value="This has two characters per one field."/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="codeCount">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="underlineDefaultColor">
+                                        <color key="value" red="0.6247259461998057" green="1" blue="0.39755735240024037" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="underlineFilledColor">
+                                        <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="oneCodeLength">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="underlineEditingColor">
+                                        <color key="value" red="1" green="0.6384533700849202" blue="0.44140131065390342" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="oneCodePlaceHolder" value="00"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="codeHeight">
+                                        <real key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="typed text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5k-LV-OQB">
+                                <rect key="frame" x="16" y="292" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="i5k-LV-OQB" secondAttribute="trailing" constant="16" id="BXt-Zb-Viq"/>
+                            <constraint firstAttribute="trailing" secondItem="fRg-so-Jqw" secondAttribute="trailing" constant="16" id="FG9-1f-Ddp"/>
+                            <constraint firstItem="i5k-LV-OQB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="GcZ-up-w44"/>
+                            <constraint firstItem="ViI-RO-h4Y" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="Zpi-Xt-zdM"/>
+                            <constraint firstItem="i5k-LV-OQB" firstAttribute="top" secondItem="fRg-so-Jqw" secondAttribute="bottom" constant="28" id="fwG-gC-WAQ"/>
+                            <constraint firstItem="fRg-so-Jqw" firstAttribute="top" secondItem="ViI-RO-h4Y" secondAttribute="bottom" constant="20" id="k9G-LZ-aSV"/>
+                            <constraint firstItem="ViI-RO-h4Y" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="lhO-Ec-gG6"/>
+                            <constraint firstAttribute="trailing" secondItem="ViI-RO-h4Y" secondAttribute="trailing" constant="16" id="y77-qm-Lnd"/>
+                            <constraint firstItem="fRg-so-Jqw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="ztj-S3-Saw"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="codeField1" destination="ViI-RO-h4Y" id="3PM-cu-5Jg"/>
+                        <outlet property="codeField2" destination="fRg-so-Jqw" id="544-dp-Lvq"/>
+                        <outlet property="typedCodeLb" destination="i5k-LV-OQB" id="Ukb-x0-Z30"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

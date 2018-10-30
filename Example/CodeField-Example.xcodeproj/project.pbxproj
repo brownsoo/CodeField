@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		178148132188401C00177440 /* Pods_CodeField_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178148122188401C00177440 /* Pods_CodeField_Example.framework */; };
+		17814815218843B300177440 /* CodeField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17814814218843B300177440 /* CodeField.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		98404A79989441C220B312F0 /* Pods_CodeField_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44AFFE94913602A98703157 /* Pods_CodeField_Tests.framework */; };
-		C76E00E340D7AF223FEA2F50 /* Pods_CodeField_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6956221980C659B26ECB05D5 /* Pods_CodeField_Example.framework */; };
+		73FD5E53064324568748E93E /* Pods_CodeField_Example_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178148102188401C00177440 /* Pods_CodeField_Example_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +30,14 @@
 
 /* Begin PBXFileReference section */
 		0E8E58A47DE0449E08C734E0 /* Pods-CodeField_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeField_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeField_Tests/Pods-CodeField_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		1781480E21883FDD00177440 /* CodeField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CodeField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		178148102188401C00177440 /* Pods_CodeField_Example_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_CodeField_Example_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		178148122188401C00177440 /* Pods_CodeField_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_CodeField_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17814814218843B300177440 /* CodeField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CodeField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A2757A144088071469C37C6 /* Pods_CodeField_Example_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeField_Example_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3987079B1256F3FFAF1C7AC1 /* Pods-CodeField-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeField-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeField-Example/Pods-CodeField-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		442DD9BB1B5F96D188D72892 /* Pods-CodeField_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeField_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeField_Example/Pods-CodeField_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		607FACD01AFB9204008FA782 /* CodeField-Example_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CodeField-Example_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD01AFB9204008FA782 /* CodeField-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CodeField-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +54,9 @@
 		B3DCF7C3EBA63F46DC258AA0 /* CodeField.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = CodeField.podspec; path = ../CodeField.podspec; sourceTree = "<group>"; };
 		C44AFFE94913602A98703157 /* Pods_CodeField_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeField_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3FEE7F774456F1F4A3E97E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		F2DE2FDB51F391B8FB30ACF9 /* Pods-CodeField-Example_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeField-Example_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeField-Example_Tests/Pods-CodeField-Example_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		FB3614DA58F62D1E2563F5D8 /* Pods-CodeField-Example_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeField-Example_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeField-Example_Tests/Pods-CodeField-Example_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FFA69D1250402784B3B3C735 /* Pods-CodeField-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeField-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeField-Example/Pods-CodeField-Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C76E00E340D7AF223FEA2F50 /* Pods_CodeField_Example.framework in Frameworks */,
+				178148132188401C00177440 /* Pods_CodeField_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98404A79989441C220B312F0 /* Pods_CodeField_Tests.framework in Frameworks */,
+				17814815218843B300177440 /* CodeField.framework in Frameworks */,
+				73FD5E53064324568748E93E /* Pods_CodeField_Example_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +95,7 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* CodeField-Example_Example.app */,
+				607FACD01AFB9204008FA782 /* CodeField-Example.app */,
 				607FACE51AFB9204008FA782 /* CodeField-Example_Tests.xctest */,
 			);
 			name = Products;
@@ -142,8 +153,13 @@
 		883305EECE52F8AC4B1BBF7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				17814814218843B300177440 /* CodeField.framework */,
+				178148102188401C00177440 /* Pods_CodeField_Example_Tests.framework */,
+				178148122188401C00177440 /* Pods_CodeField_Example.framework */,
+				1781480E21883FDD00177440 /* CodeField.framework */,
 				6956221980C659B26ECB05D5 /* Pods_CodeField_Example.framework */,
 				C44AFFE94913602A98703157 /* Pods_CodeField_Tests.framework */,
+				1A2757A144088071469C37C6 /* Pods_CodeField_Example_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,6 +171,10 @@
 				8391BE838657BFFFAC48F018 /* Pods-CodeField_Example.release.xcconfig */,
 				8523C32679EE701CE346E85A /* Pods-CodeField_Tests.debug.xcconfig */,
 				0E8E58A47DE0449E08C734E0 /* Pods-CodeField_Tests.release.xcconfig */,
+				3987079B1256F3FFAF1C7AC1 /* Pods-CodeField-Example.debug.xcconfig */,
+				FFA69D1250402784B3B3C735 /* Pods-CodeField-Example.release.xcconfig */,
+				FB3614DA58F62D1E2563F5D8 /* Pods-CodeField-Example_Tests.debug.xcconfig */,
+				F2DE2FDB51F391B8FB30ACF9 /* Pods-CodeField-Example_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -162,9 +182,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		607FACCF1AFB9204008FA782 /* CodeField-Example_Example */ = {
+		607FACCF1AFB9204008FA782 /* CodeField-Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "CodeField-Example_Example" */;
+			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "CodeField-Example" */;
 			buildPhases = (
 				EED2ADC23A7ABC0880535795 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
@@ -176,9 +196,9 @@
 			);
 			dependencies = (
 			);
-			name = "CodeField-Example_Example";
+			name = "CodeField-Example";
 			productName = CodeField;
-			productReference = 607FACD01AFB9204008FA782 /* CodeField-Example_Example.app */;
+			productReference = 607FACD01AFB9204008FA782 /* CodeField-Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 		607FACE41AFB9204008FA782 /* CodeField-Example_Tests */ = {
@@ -218,6 +238,7 @@
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -235,7 +256,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				607FACCF1AFB9204008FA782 /* CodeField-Example_Example */,
+				607FACCF1AFB9204008FA782 /* CodeField-Example */,
 				607FACE41AFB9204008FA782 /* CodeField-Example_Tests */,
 			);
 		};
@@ -277,7 +298,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CodeField_Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CodeField-Example_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -292,7 +313,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CodeField_Example/Pods-CodeField_Example-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-CodeField-Example/Pods-CodeField-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CodeField/CodeField.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -303,7 +324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeField_Example/Pods-CodeField_Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeField-Example/Pods-CodeField-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EED2ADC23A7ABC0880535795 /* [CP] Check Pods Manifest.lock */ = {
@@ -321,7 +342,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CodeField_Example-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CodeField-Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -353,7 +374,7 @@
 /* Begin PBXTargetDependency section */
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* CodeField-Example_Example */;
+			target = 607FACCF1AFB9204008FA782 /* CodeField-Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -483,7 +504,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 442DD9BB1B5F96D188D72892 /* Pods-CodeField_Example.debug.xcconfig */;
+			baseConfigurationReference = 3987079B1256F3FFAF1C7AC1 /* Pods-CodeField-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
@@ -501,7 +522,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8391BE838657BFFFAC48F018 /* Pods-CodeField_Example.release.xcconfig */;
+			baseConfigurationReference = FFA69D1250402784B3B3C735 /* Pods-CodeField-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
@@ -519,8 +540,10 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8523C32679EE701CE346E85A /* Pods-CodeField_Tests.debug.xcconfig */;
+			baseConfigurationReference = FB3614DA58F62D1E2563F5D8 /* Pods-CodeField-Example_Tests.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -533,16 +556,19 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeField-Example_Example.app/CodeField-Example_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeField-Example.app/CodeField-Example";
 			};
 			name = Debug;
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E8E58A47DE0449E08C734E0 /* Pods-CodeField_Tests.release.xcconfig */;
+			baseConfigurationReference = F2DE2FDB51F391B8FB30ACF9 /* Pods-CodeField-Example_Tests.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -551,9 +577,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeField-Example_Example.app/CodeField-Example_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeField-Example.app/CodeField-Example";
 			};
 			name = Release;
 		};
@@ -569,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "CodeField-Example_Example" */ = {
+		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "CodeField-Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF01AFB9204008FA782 /* Debug */,

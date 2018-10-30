@@ -1,10 +1,10 @@
 use_frameworks!
-platform :ios, '8.0'
+platform :ios, '9.0'
 
-target 'CodeField_Example' do
+target 'CodeField-Example' do
   pod 'CodeField', :path => '../'
 
-  target 'CodeField_Tests' do
+  target 'CodeField-Example_Tests' do
     inherit! :search_paths
 
     
