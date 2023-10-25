@@ -1,6 +1,0 @@
-framework module Pods_CodeField_Example {
-  umbrella header "Pods-CodeField-Example-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var codeField1: CodeField!
     @IBOutlet weak var codeField2: CodeField!
-    @IBOutlet weak var typedCodeLb: UILabel!
+    @IBOutlet weak var lbTypedCode: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,6 @@ class ViewController: UIViewController {
 
 extension ViewController: CodeFieldDelegate {
     func codeDidChanged(code: String) {
-        typedCodeLb.text = code
+        lbTypedCode.text = code
     }
 }

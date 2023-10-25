@@ -21,7 +21,6 @@ public class CodeField: UIView, UITextFieldDelegate {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        onInit()
     }
     
     override public init(frame: CGRect) {
@@ -34,6 +33,13 @@ public class CodeField: UIView, UITextFieldDelegate {
         onInit()
     }
     
+    public override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        debugPrint(klassName, "prepareForInterfaceBuilder")
+        
+    }
+    
+    /// 코드 묶음 갯수
     @IBInspectable
     public var codeCount: Int {
         get {
@@ -50,6 +56,7 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
+    /// 한 코드의 문자 길이
     @IBInspectable
     public var oneCodeLength: Int = 1 {
         didSet {
@@ -71,11 +78,19 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
-    // TODO: make responsive height with font
+//    @available(*, unavailable)
+//    public var codeHeight: CGFloat = 58 {
+//        didSet {
+//            boxes.forEach { $0.heightConstraint?.constant = codeHeight }
+//        }
+//    }
+    
     @IBInspectable
-    public var codeHeight: CGFloat = 58 {
-        didSet {
-            boxes.forEach { $0.heightConstraint?.constant = codeHeight }
+    public var codeFont: UIFont = UIFont.systemFont(ofSize: 33, weight: .medium) {
+        willSet {
+            boxes.forEach { box in
+                box.textField.font = codeFont
+            }
         }
     }
     
@@ -130,11 +145,11 @@ public class CodeField: UIView, UITextFieldDelegate {
                 if i < count {
                     let char = new.enumerated().first { offset, _ in offset == i }?.element
                     if char != nil {
-                        boxes[i].tf.text = String(char!)
+                        boxes[i].textField.text = String(char!)
                         continue
                     }
                 }
-                boxes[i].tf.text = ""
+                boxes[i].textField.text = ""
             }
         }
         get {
@@ -175,7 +190,7 @@ public class CodeField: UIView, UITextFieldDelegate {
     @IBInspectable
     public var isEnabled: Bool = true {
         didSet {
-            boxes.forEach { $0.tf.isEnabled = isEnabled }
+            boxes.forEach { $0.textField.isEnabled = isEnabled }
         }
     }
     
@@ -186,11 +201,12 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
+    /// 코드 필드의 델리게이터
     public var delegate: CodeFieldDelegate?
     
     private var _codeCount: Int = 6
     private lazy var klassName = "CodeField@\(hash)"
-    private lazy var labelView = UILabel()
+    private let labelView = UILabel()
     private lazy var helperLb: UILabel = {
         let lb = UILabel()
         lb.font = helperFont
@@ -200,33 +216,32 @@ public class CodeField: UIView, UITextFieldDelegate {
         return lb
     }()
     private var helperBottomConstraint: NSLayoutConstraint?
-    private lazy var stack = UIStackView()
+    private let stack = UIStackView()
     private var codes = [String]()
     private var boxes = [CharBox]()
     private var cursor: Int = 0 {
         didSet {
             let box = boxes.first { $0.tag == cursor }
-            box?.tf.becomeFirstResponder()
+            box?.textField.becomeFirstResponder()
             box?.updateFilled()
         }
     }
     
     @discardableResult
     public override func becomeFirstResponder() -> Bool {
-        if let tf = boxes.first?.tf {
+        if let tf = boxes.first?.textField {
             return tf.becomeFirstResponder()
         }
         return false
     }
     
     public override func layoutSubviews() {
-        print(klassName, "layoutSubviews")
-        // setup()
+        debugPrint(klassName, "layoutSubviews")
         super.layoutSubviews()
     }
     
     private func onInit() {
-        print(klassName, "onInit")
+        debugPrint(klassName, "onInit")
         
         addSubview(labelView)
         labelView.textColor = UIColor(red: 52/255.0, green:58/255.0, blue:64/255.0, alpha: 1.0)
@@ -245,6 +260,8 @@ public class CodeField: UIView, UITextFieldDelegate {
         stack.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         stack.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         stack.topAnchor.constraint(equalTo: labelView.bottomAnchor, constant: 8).isActive = true
+        stack.setContentHuggingPriority(.defaultLow, for: .vertical)
+        stack.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         let bottomConstraint = stack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
         bottomConstraint.priority = .defaultLow
         bottomConstraint.isActive = true
@@ -256,11 +273,13 @@ public class CodeField: UIView, UITextFieldDelegate {
         helperLb.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 8).isActive = true
         helperBottomConstraint = helperLb.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         
-        resetCodeViews()
+        DispatchQueue.main.async {
+            self.resetCodeViews()
+        }
     }
     
     private func resetCodeViews() {
-        print(klassName, "resetCodeViews")
+        debugPrint(klassName, "resetCodeViews")
         
         if stack.superview != nil {
             for child in stack.subviews {
@@ -269,8 +288,7 @@ public class CodeField: UIView, UITextFieldDelegate {
                 for con in child.constraints {
                     child.removeConstraint(con)
                 }
-                (child as? CharBox)?.onDeleteNothing = nil
-                (child as? CharBox)?.onTextChanged = nil
+                (child as? CharBox)?.delegate = nil
             }
         }
         
@@ -282,7 +300,6 @@ public class CodeField: UIView, UITextFieldDelegate {
             charBox.heightConstraint = charBox.heightAnchor.constraint(equalToConstant: codeHeight)
             charBox.heightConstraint?.isActive = true
             charBox.keyboardType = keyboardType
-            //charBox.underlineHeight = underlineHeight
             charBox.underlineFilledColor = underlineFilledColor
             charBox.underlineDefaultColor = underlineDefaultColor
             charBox.underlineEditingColor = underlineEditingColor
@@ -290,12 +307,7 @@ public class CodeField: UIView, UITextFieldDelegate {
             charBox.placeholder = oneCodePlaceHolder
             charBox.backgroundColor = codeBackgroundColor
             stack.addArrangedSubview(charBox)
-            charBox.onTextChanged = {
-                self.onTextChanged(text: $0, tag: idx)
-            }
-            charBox.onDeleteNothing = {
-                self.onDeleteNothing(tag: $0)
-            }
+            charBox.delegate = self
             codes.append("")
             boxes.append(charBox)
         }
@@ -307,177 +319,31 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
-    private func onTextChanged(text: String?, tag: Int) {
-        print(klassName, "onTextChanged \(oneCodeLength)")
+}
+
+extension CodeField: CharBoxDelegate {
+    func didDeleteNothing(tag: Int, of charBox: CharBox) {
+        debugPrint(klassName, "didDeleteNothing \(tag)")
+        cursor = max(0, tag - 1)
+        if tag - 1 >= 0 {
+            boxes[tag - 1].textField.text = nil
+            codes[tag - 1] = ""
+        }
+        delegate?.codeDidChanged(code: self.code)
+    }
+    
+    func didTextChanged(text: String?, of charBox: CharBox) {
+        debugPrint(klassName, "didTextChanged \(oneCodeLength)")
         codes[tag] = text ?? ""
         if text != nil && !(text!.isEmpty) && text!.count == oneCodeLength {
             cursor = min(codeCount - 1, tag + 1)
         }
         delegate?.codeDidChanged(code: self.code)
     }
-    
-    private func onDeleteNothing(tag: Int) {
-        print(klassName, "onDeleteNothing \(tag)")
-        cursor = max(0, tag - 1)
-        if tag - 1 >= 0 {
-            boxes[tag - 1].tf.text = nil
-            codes[tag - 1] = ""
-        }
-        delegate?.codeDidChanged(code: self.code)
-    }
-    
 }
 
-fileprivate class CharBox: UIView, UITextFieldDelegate {
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupLayout()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupLayout()
-    }
-    
-    convenience init(tag: Int = 0) {
-        self.init(frame: CGRect())
-        self.tag = tag
-        setupLayout()
-    }
-    
-    let tf = NTextField()
-    let line = UIView()
-    var onDeleteNothing: ((Int) -> Void)?
-    var onTextChanged: ((String?) -> Void)?
-    private(set) var filled: Bool = false {
-        didSet {
-            updateUnderline()
-        }
-    }
-    var heightConstraint: NSLayoutConstraint?
-    private var lineHeighConstraint: NSLayoutConstraint?
-    var underlineHeight: CGFloat = CodeField.defaultUnderlineHeight {
-        didSet {
-            lineHeighConstraint?.constant = underlineHeight
-        }
-    }
-    var underlineDefaultColor = CodeField.defaultUnderlineColor {
-        didSet {
-            updateUnderline()
-        }
-    }
-    var underlineFilledColor = CodeField.defaultUnderlineFilledColor {
-        didSet {
-            updateUnderline()
-        }
-    }
-    var underlineEditingColor = CodeField.defaultUnderlineEditingColor {
-        didSet {
-            updateUnderline()
-        }
-    }
-    var maxLength: Int = 1
-    var keyboardType: UIKeyboardType = .numberPad {
-        didSet {
-            tf.keyboardType = keyboardType
-        }
-    }
-    var placeholder: String? = nil {
-        didSet {
-            tf.placeholder = placeholder
-        }
-    }
-    
-    private func updateUnderline() {
-        if isEditing {
-            line.backgroundColor = underlineEditingColor
-        } else if filled {
-            line.backgroundColor = underlineFilledColor
-        } else {
-            line.backgroundColor = underlineDefaultColor
-        }
-    }
-    
-    private var isEditing: Bool = false
-    
-    private func setupLayout() {
-        
-        self.addSubview(tf)
-        tf.placeholder = placeholder
-        tf.textAlignment = .center
-        tf.textColor = UIColor.black
-        tf.font = UIFont.systemFont(ofSize: 33, weight: .medium)
-        tf.keyboardType = keyboardType
-        tf.textAlignment = .center
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = tf.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor)
-        topConstraint.priority = .defaultLow
-        topConstraint.isActive = true
-        tf.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        tf.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        tf.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        tf.deleteBackNothing = {
-            self.onDeleteNothing?(self.tag)
-        }
-        tf.delegate = self
-        tf.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        self.addSubview(line)
-        line.backgroundColor = underlineDefaultColor
-        line.translatesAutoresizingMaskIntoConstraints = false
-        lineHeighConstraint = line.heightAnchor.constraint(equalToConstant: underlineHeight)
-        lineHeighConstraint?.isActive = true
-        line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        line.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        line.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-    }
-    
-    func updateFilled() {
-        let t = tf.text
-        self.filled = t != nil && !(t!.isEmpty)
-    }
-    
-    @objc
-    private func textFieldDidChange() {
-        let t = tf.text
-        updateFilled()
-        onTextChanged?(t)
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return true }
-        let newLength = text.count + string.count - range.length
-        return newLength <= maxLength
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        isEditing = true
-        updateFilled()
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        isEditing = false
-        updateFilled()
-    }
-}
 
-fileprivate class NTextField: UITextField {
-    /// Called when nothing to delete with the back-key pressed
-    var deleteBackNothing: (() -> Void)?
-    
-    override func deleteBackward() {
-        if self.text == nil || self.text!.isEmpty {
-            deleteBackNothing?()
-        }
-        super.deleteBackward()
-    }
-}
+
+
+
 

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ViI-RO-h4Y" customClass="CodeField" customModule="CodeField">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ViI-RO-h4Y" customClass="CodeField" customModule="CodeField">
                                 <rect key="frame" x="16" y="40" width="343" height="106"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
@@ -42,7 +40,7 @@
                                         <color key="value" red="0.6247259461998057" green="1" blue="0.39755735240024037" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="underlineFilledColor">
-                                        <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="value" systemColor="darkTextColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="oneCodeLength">
                                         <integer key="value" value="2"/>
@@ -65,13 +63,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="fRg-so-Jqw" firstAttribute="top" secondItem="ViI-RO-h4Y" secondAttribute="bottom" constant="20" id="030-Uh-c5l"/>
+                            <constraint firstItem="ViI-RO-h4Y" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="3aM-2Y-wjZ"/>
                             <constraint firstAttribute="trailing" secondItem="i5k-LV-OQB" secondAttribute="trailing" constant="16" id="BXt-Zb-Viq"/>
                             <constraint firstAttribute="trailing" secondItem="fRg-so-Jqw" secondAttribute="trailing" constant="16" id="FG9-1f-Ddp"/>
                             <constraint firstItem="i5k-LV-OQB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="GcZ-up-w44"/>
                             <constraint firstItem="ViI-RO-h4Y" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="Zpi-Xt-zdM"/>
-                            <constraint firstItem="i5k-LV-OQB" firstAttribute="top" secondItem="fRg-so-Jqw" secondAttribute="bottom" constant="28" id="fwG-gC-WAQ"/>
-                            <constraint firstItem="fRg-so-Jqw" firstAttribute="top" secondItem="ViI-RO-h4Y" secondAttribute="bottom" constant="20" id="k9G-LZ-aSV"/>
-                            <constraint firstItem="ViI-RO-h4Y" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="lhO-Ec-gG6"/>
+                            <constraint firstItem="i5k-LV-OQB" firstAttribute="top" secondItem="fRg-so-Jqw" secondAttribute="bottom" constant="28" id="tyE-jO-a63"/>
                             <constraint firstAttribute="trailing" secondItem="ViI-RO-h4Y" secondAttribute="trailing" constant="16" id="y77-qm-Lnd"/>
                             <constraint firstItem="fRg-so-Jqw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="ztj-S3-Saw"/>
                         </constraints>
@@ -79,7 +77,7 @@
                     <connections>
                         <outlet property="codeField1" destination="ViI-RO-h4Y" id="3PM-cu-5Jg"/>
                         <outlet property="codeField2" destination="fRg-so-Jqw" id="544-dp-Lvq"/>
-                        <outlet property="typedCodeLb" destination="i5k-LV-OQB" id="Ukb-x0-Z30"/>
+                        <outlet property="lbTypedCode" destination="i5k-LV-OQB" id="tSb-SX-ZuD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -87,4 +85,9 @@
             <point key="canvasLocation" x="-87.200000000000003" y="132.68365817091455"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

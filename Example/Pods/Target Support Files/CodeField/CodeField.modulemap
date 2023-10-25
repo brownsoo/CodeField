@@ -1,6 +1,0 @@
-framework module CodeField {
-  umbrella header "CodeField-umbrella.h"
-
-  export *
-  module * { export * }
-}
