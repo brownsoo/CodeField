@@ -21,6 +21,15 @@ class ViewController: UIViewController {
         
         codeField2.delegate = self
         codeField2.keyboardType = .alphabet
+        
+        let codeField3 = CodeField()
+        codeField3.codeFont = UIFont.systemFont(ofSize: 14, weight: .thin)
+        codeField3.helper = "made by code"
+        view.addSubview(codeField3)
+        codeField3.translatesAutoresizingMaskIntoConstraints = false
+        codeField3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        codeField3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        codeField3.topAnchor.constraint(equalTo: lbTypedCode.bottomAnchor, constant: 30).isActive = true
     }
 
     override func didReceiveMemoryWarning() {

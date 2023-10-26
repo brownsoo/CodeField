@@ -10,14 +10,16 @@ public protocol CodeFieldDelegate {
 
 @IBDesignable
 public class CodeField: UIView, UITextFieldDelegate {
-    
-    static let defaultUnderlineFilledColor = UIColor(red: 74/255.0,
-                                                     green: 144/255.0,
-                                                     blue: 226/255.0,
-                                                     alpha: 1.0)
-    static let defaultUnderlineColor = UIColor(white: 0.95, alpha: 1)
-    static let defaultUnderlineHeight: CGFloat = 3.0
-    static let defaultUnderlineEditingColor = UIColor.black
+    /// underline color of the text filled
+    static let underlineFilledColor = UIColor(red: 74/255.0, green: 144/255.0, blue: 226/255.0, alpha: 1.0)
+    /// default underline color of the empty text
+    static let underlineColor = UIColor(white: 0.95, alpha: 1)
+    /// default underline color when editing text
+    static let underlineEditingColor = UIColor.black
+    /// default underline height
+    static let underlineHeight: CGFloat = 3.0
+    /// default code font
+    static let codeFont = UIFont.systemFont(ofSize: 33, weight: .medium)
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -25,18 +27,22 @@ public class CodeField: UIView, UITextFieldDelegate {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        onInit()
+        debugPrint(klassName, "init(frame)")
+        setupLayout()
     }
     
     override public func awakeFromNib() {
         super.awakeFromNib()
-        onInit()
+        debugPrint(klassName, "awakeFromNib()")
+        setupLayout()
+        
     }
     
     public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         debugPrint(klassName, "prepareForInterfaceBuilder")
-        
+        isInterfaceBuilding = true
+        updateUI()
     }
     
     /// 코드 묶음 갯수
@@ -78,15 +84,8 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
-//    @available(*, unavailable)
-//    public var codeHeight: CGFloat = 58 {
-//        didSet {
-//            boxes.forEach { $0.heightConstraint?.constant = codeHeight }
-//        }
-//    }
-    
     @IBInspectable
-    public var codeFont: UIFont = UIFont.systemFont(ofSize: 33, weight: .medium) {
+    public var codeFont: UIFont = CodeField.codeFont {
         willSet {
             boxes.forEach { box in
                 box.textField.font = codeFont
@@ -96,42 +95,42 @@ public class CodeField: UIView, UITextFieldDelegate {
     
     @IBInspectable
     public var codeDistribution: UIStackView.Distribution = .fillEqually {
-        didSet {
-            stack.distribution = codeDistribution
+        willSet {
+            stvCode.distribution = codeDistribution
         }
     }
     
     @IBInspectable
     public var label: String? = nil {
-        didSet {
-            labelView.text = label
+        willSet {
+            lbLabel.text = label
         }
     }
     
     @IBInspectable
-    public var underlineDefaultColor: UIColor = CodeField.defaultUnderlineColor {
-        didSet {
+    public var underlineDefaultColor: UIColor = CodeField.underlineColor {
+        willSet {
             boxes.forEach { $0.underlineDefaultColor = underlineDefaultColor }
         }
     }
     
     @IBInspectable
-    public var underlineFilledColor: UIColor = CodeField.defaultUnderlineFilledColor {
-        didSet {
+    public var underlineFilledColor: UIColor = CodeField.underlineFilledColor {
+        willSet {
             boxes.forEach { $0.underlineFilledColor = underlineFilledColor }
         }
     }
     
     @IBInspectable
-    public var underlineEditingColor: UIColor = CodeField.defaultUnderlineEditingColor {
-        didSet {
+    public var underlineEditingColor: UIColor = CodeField.underlineEditingColor {
+        willSet {
             boxes.forEach { $0.underlineEditingColor = underlineEditingColor }
         }
     }
     
     @IBInspectable
-    public var underlineHeight: CGFloat = CodeField.defaultUnderlineHeight {
-        didSet {
+    public var underlineHeight: CGFloat = CodeField.underlineHeight {
+        willSet {
             boxes.forEach { $0.underlineHeight = underlineHeight }
         }
     }
@@ -157,14 +156,10 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
-    public var allFilled: Bool {
-        return codes.filter{ $0.isEmpty }.count == 0
-    }
-    
     @IBInspectable
     public var helper: String? = nil {
         didSet {
-            helperLb.text = helper
+            lbHelper.text = helper
             if helper == nil {
                 helperBottomConstraint?.isActive = false
             } else {
@@ -176,14 +171,14 @@ public class CodeField: UIView, UITextFieldDelegate {
     @IBInspectable
     public var helperFont = UIFont.systemFont(ofSize: 13, weight: .regular) {
         didSet {
-            helperLb.font = helperFont
+            lbHelper.font = helperFont
         }
     }
     
     @IBInspectable
     public var helperTextColor = UIColor(red: 52/255.0, green: 58/255.0, blue: 64/255.0, alpha: 1.0) {
         didSet {
-            helperLb.textColor = helperTextColor
+            lbHelper.textColor = helperTextColor
         }
     }
     
@@ -201,13 +196,20 @@ public class CodeField: UIView, UITextFieldDelegate {
         }
     }
     
+    
+    public var allFilled: Bool {
+        return codes.filter{ $0.isEmpty }.count == 0
+    }
+    
     /// 코드 필드의 델리게이터
     public var delegate: CodeFieldDelegate?
     
+    private lazy var klassName = "CodeField@\(String(format: "%02X", hash))"
+    private var observations: Set<NSKeyValueObservation> = []
+    private var isInterfaceBuilding = false
     private var _codeCount: Int = 6
-    private lazy var klassName = "CodeField@\(hash)"
-    private let labelView = UILabel()
-    private lazy var helperLb: UILabel = {
+    private let lbLabel = UILabel()
+    private lazy var lbHelper: UILabel = {
         let lb = UILabel()
         lb.font = helperFont
         lb.textColor = helperTextColor
@@ -216,7 +218,7 @@ public class CodeField: UIView, UITextFieldDelegate {
         return lb
     }()
     private var helperBottomConstraint: NSLayoutConstraint?
-    private let stack = UIStackView()
+    private let stvCode = UIStackView()
     private var codes = [String]()
     private var boxes = [CharBox]()
     private var cursor: Int = 0 {
@@ -238,52 +240,23 @@ public class CodeField: UIView, UITextFieldDelegate {
     public override func layoutSubviews() {
         debugPrint(klassName, "layoutSubviews")
         super.layoutSubviews()
-    }
-    
-    private func onInit() {
-        debugPrint(klassName, "onInit")
-        
-        addSubview(labelView)
-        labelView.textColor = UIColor(red: 52/255.0, green:58/255.0, blue:64/255.0, alpha: 1.0)
-        labelView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        labelView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        labelView.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor).isActive = true
-        labelView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        
-        addSubview(stack)
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.alignment = .top
-        stack.spacing = 6
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        stack.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        stack.topAnchor.constraint(equalTo: labelView.bottomAnchor, constant: 8).isActive = true
-        stack.setContentHuggingPriority(.defaultLow, for: .vertical)
-        stack.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        let bottomConstraint = stack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
-        bottomConstraint.priority = .defaultLow
-        bottomConstraint.isActive = true
-        
-        addSubview(helperLb)
-        helperLb.translatesAutoresizingMaskIntoConstraints = false
-        helperLb.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        helperLb.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        helperLb.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 8).isActive = true
-        helperBottomConstraint = helperLb.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        
-        DispatchQueue.main.async {
-            self.resetCodeViews()
+        if !isInterfaceBuilding {
+            resetCodeViews()
         }
     }
+    
+    private func updateUI() {
+        // TODO: 변경 속성을 상태값 하나로 처리.
+    }
+    
+    
     
     private func resetCodeViews() {
         debugPrint(klassName, "resetCodeViews")
         
-        if stack.superview != nil {
-            for child in stack.subviews {
-                stack.removeArrangedSubview(child)
+        if stvCode.superview != nil {
+            for child in stvCode.subviews {
+                stvCode.removeArrangedSubview(child)
                 child.removeFromSuperview()
                 for con in child.constraints {
                     child.removeConstraint(con)
@@ -291,24 +264,25 @@ public class CodeField: UIView, UITextFieldDelegate {
                 (child as? CharBox)?.delegate = nil
             }
         }
-        
+        let originCodes = codes
         codes.removeAll(keepingCapacity: false)
         boxes.removeAll(keepingCapacity: false)
         for idx in 0..<codeCount {
             let charBox = CharBox(tag: idx)
             charBox.translatesAutoresizingMaskIntoConstraints = false
-            charBox.heightConstraint = charBox.heightAnchor.constraint(equalToConstant: codeHeight)
-            charBox.heightConstraint?.isActive = true
-            charBox.keyboardType = keyboardType
+            charBox.setContentHuggingPriority(.required, for: .vertical)
+            charBox.setContentCompressionResistancePriority(.required, for: .vertical)
+            charBox.textField.font = self.codeFont
+            charBox.keyboardType = self.keyboardType
             charBox.underlineFilledColor = underlineFilledColor
             charBox.underlineDefaultColor = underlineDefaultColor
             charBox.underlineEditingColor = underlineEditingColor
             charBox.maxLength = oneCodeLength
             charBox.placeholder = oneCodePlaceHolder
             charBox.backgroundColor = codeBackgroundColor
-            stack.addArrangedSubview(charBox)
+            stvCode.addArrangedSubview(charBox)
             charBox.delegate = self
-            codes.append("")
+            codes.append(originCodes.getAt(idx) ?? "")
             boxes.append(charBox)
         }
         
@@ -317,6 +291,15 @@ public class CodeField: UIView, UITextFieldDelegate {
         } else {
             helperBottomConstraint?.isActive = false
         }
+    }
+}
+
+extension Array {
+    func getAt(_ offset: Int) -> Element? {
+        guard offset < self.count else  {
+            return nil
+        }
+        return self[offset]
     }
     
 }
@@ -333,16 +316,57 @@ extension CodeField: CharBoxDelegate {
     }
     
     func didTextChanged(text: String?, of charBox: CharBox) {
-        debugPrint(klassName, "didTextChanged \(oneCodeLength)")
-        codes[tag] = text ?? ""
-        if text != nil && !(text!.isEmpty) && text!.count == oneCodeLength {
-            cursor = min(codeCount - 1, tag + 1)
+        debugPrint(klassName, "tag: \(charBox.tag)", "didTextChanged \(oneCodeLength)")
+        codes[charBox.tag] = text ?? ""
+        if let typed = text {
+            if !typed.isEmpty && typed.count == oneCodeLength {
+                cursor = min(codeCount - 1, charBox.tag + 1)
+            }
         }
         delegate?.codeDidChanged(code: self.code)
     }
 }
 
-
+extension CodeField {
+    private func setupLayout() {
+        debugPrint(klassName, "setupLayout")
+        
+        addSubview(lbLabel)
+        lbLabel.textColor = UIColor(red: 52/255.0, green:58/255.0, blue:64/255.0, alpha: 1.0)
+        lbLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        lbLabel.translatesAutoresizingMaskIntoConstraints = false
+        lbLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        lbLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor).isActive = true
+        lbLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        lbLabel.setContentHuggingPriority(.required, for: .vertical)
+        lbLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        addSubview(stvCode)
+        stvCode.axis = .horizontal
+        stvCode.distribution = .fillEqually
+        stvCode.alignment = .top
+        stvCode.spacing = 6
+        stvCode.translatesAutoresizingMaskIntoConstraints = false
+        stvCode.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        stvCode.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        stvCode.topAnchor.constraint(equalTo: lbLabel.bottomAnchor, constant: 8).isActive = true
+        stvCode.setContentHuggingPriority(.defaultLow, for: .vertical)
+        stvCode.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        let bottomConstraint = stvCode.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+        bottomConstraint.priority = .defaultLow
+        bottomConstraint.isActive = true
+        
+        addSubview(lbHelper)
+        lbHelper.translatesAutoresizingMaskIntoConstraints = false
+        lbHelper.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        lbHelper.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        lbHelper.topAnchor.constraint(equalTo: stvCode.bottomAnchor, constant: 8).isActive = true
+        lbHelper.setContentHuggingPriority(.required, for: .vertical)
+        lbHelper.setContentCompressionResistancePriority(.required, for: .vertical)
+        helperBottomConstraint = lbHelper.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        
+    }
+}
 
 
 
