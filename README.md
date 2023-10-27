@@ -10,6 +10,7 @@
 
 Api can be changed in future. 
 
+- [ ] SPM distribution
 - [ ] Storyboard integration test
 - [ ] Code documentation
 - [ ] Add properties for styling
@@ -21,9 +22,17 @@ Api can be changed in future.
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
 
 ## Installation
+
+### [Swift Package Manager](https://swift.org/package-manager/)
+
+* Open Xcode
+* Go to File > Swift Packages > Add Package Dependency...
+* Paste this Github Repo URL (https://github.com/brownsoo/CodeField) into the search bar.
+* Select the ValueAnimator repo from the search results.
+
+### [CocoaPods](http://cocoapods.org)
 
 CodeField is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -34,7 +43,7 @@ pod 'CodeField'
 
 ## Author
 
-brownsoo, hansune@me.com
+brownsoo, [@medium](https://medium.com/@brownsoo)
 
 ## License
 
