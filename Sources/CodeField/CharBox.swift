@@ -15,40 +15,24 @@ protocol CharBoxDelegate: AnyObject {
 
 class CharBox: UIView {
     
-    class Properties: NSObject {
-        var underlineHeight: CGFloat
-        var underlineDefaultColor: UIColor
-        var underlineFilledColor: UIColor
-        var underlineEditingColor: UIColor
-        init(underlineHeight: CGFloat, underlineDefaultColor: UIColor, underlineFilledColor: UIColor, underlineEditingColor: UIColor) {
-            self.underlineHeight = underlineHeight
-            self.underlineDefaultColor = underlineDefaultColor
-            self.underlineFilledColor = underlineFilledColor
-            self.underlineEditingColor = underlineEditingColor
-        }
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        debugPrint(klassName, "init(frame)")
         setupLayout()
         observeUpdates()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        debugPrint(klassName, "awakeFromNib")
         setupLayout()
         observeUpdates()
     }
     
     convenience init(tag: Int = 0) {
         self.init(frame: CGRect())
-        debugPrint(klassName, "init(tag)")
         self.tag = tag
     }
     
@@ -73,12 +57,6 @@ class CharBox: UIView {
     private var isEditing: Bool = false
     private var lineHeighConstraint: NSLayoutConstraint?
     private var observations: Set<NSKeyValueObservation> = []
-//    private lazy var updateQueue: OperationQueue = {
-//        let op = OperationQueue()
-//        op.maxConcurrentOperationCount = 1
-//        return op
-//    }()
-//    private let mainQueue = OperationQueue.main
     
     let textField: UITextField = NTextField()
     
@@ -88,6 +66,7 @@ class CharBox: UIView {
     @objc dynamic var underlineEditingColor = CodeField.underlineEditingColor
    
     var maxLength: Int = 1
+    
     var keyboardType: UIKeyboardType = .numberPad {
         didSet {
             textField.keyboardType = keyboardType
@@ -126,18 +105,15 @@ class CharBox: UIView {
     
     // TODO: 큐로 한번만 업데이트 되도록 수정
     private func updateUI() {
-        debugPrint(klassName, "updateUI")
-//        updateQueue.isSuspended = true
-//        updateQueue.cancelAllOperations()
-//        updateQueue.addOperation { [weak self, isEditing, mainQueue] in
-//            guard let self = self else { return }
-//            debugPrint(klassName, "updateUI ------  ")
-//            mainQueue.addOperation {
-//            }
-//        }
-//        updateQueue.isSuspended = false
+        // debugPrint(klassName, "updateUI")
         let filled = self.updateFilled()
         self.updateUnderline(isEditing, isFilled: filled)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // debugPrint(klassName, "layoutSubviews()")
+        updateUI()
     }
     
 }
@@ -172,23 +148,31 @@ extension CharBox {
         guard !isInterfaceBuilding else { return }
         
         observations.insert(
-            self.observe(\.underlineHeight, options: [.initial, .new]) { obj, change in
-                obj.updateUI()
+            self.observe(\.underlineHeight, options: [.new]) { obj, change in
+                if self.superview != nil {
+                    obj.updateUI()
+                }
             }
         )
         observations.insert(
-            self.observe(\.underlineDefaultColor, options: [.initial, .new]) { obj, change in
-                obj.updateUI()
+            self.observe(\.underlineDefaultColor, options: [.new]) { obj, change in
+                if self.superview != nil {
+                    obj.updateUI()
+                }
             }
         )
         observations.insert(
-            self.observe(\.underlineFilledColor, options: [.initial, .new]) { obj, change in
-                obj.updateUI()
+            self.observe(\.underlineFilledColor, options: [.new]) { obj, change in
+                if self.superview != nil {
+                    obj.updateUI()
+                }
             }
         )
         observations.insert(
-            self.observe(\.underlineEditingColor, options: [.initial, .new]) { obj, change in
-                obj.updateUI()
+            self.observe(\.underlineEditingColor, options: [.new]) { obj, change in
+                if self.superview != nil {
+                    obj.updateUI()
+                }
             }
         )
         
@@ -206,10 +190,10 @@ extension CharBox {
         // auto layout
         textField.translatesAutoresizingMaskIntoConstraints = false
         let topConstraint = textField.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor)
-        topConstraint.priority = .defaultLow
+        topConstraint.priority = .defaultHigh
         topConstraint.isActive = true
         let bottomConstraint = textField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
-        bottomConstraint.priority = .defaultLow
+        bottomConstraint.priority = .defaultHigh
         bottomConstraint.isActive = true
         textField.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         textField.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
