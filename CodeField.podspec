@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CodeField'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Custom UITextField to input code.'
 
 # This description is used to generate tags and improve search results.
@@ -26,17 +26,10 @@ CodeField is custom view extends UIView. Using CodeField you can type the code l
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'brownsoo' => 'hansune@me.com' }
   s.source           = { :git => 'https://github.com/brownsoo/CodeField.git', :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/hansoolabs'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
 
-  s.source_files = 'CodeField/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'CodeField' => ['CodeField/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+  s.source_files     = 'Sources/**/*.swift'
+  s.swift_versions = ['4.0', '4.2', '5.0']
   s.frameworks = 'UIKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
