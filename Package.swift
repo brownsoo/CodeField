@@ -18,11 +18,7 @@ let package = Package(
     targets: [
         .target(
             name: "CodeField",
-            dependencies: [],
-        ),
-        // .testTarget(
-        //     name: "CodeFieldTests",
-        //     dependencies: ["CodeField"]
-        // )
+            dependencies: []
+        )
     ]
 )
